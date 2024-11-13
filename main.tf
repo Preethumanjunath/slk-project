@@ -4,7 +4,7 @@ provider "aws" {
 }
 
 # EC2 Instance Configuration
-resource "aws_instance" "my_ec2" {
+resource "aws_instance" "ec2" {
   ami = "ami-063d43db0594b521b"  # Replace with the actual AMI ID you want to use
   instance_type = "t2.micro"             # Free-tier eligible instance type
   tags = {
@@ -13,7 +13,7 @@ resource "aws_instance" "my_ec2" {
 }
 
 # S3 Bucket Configuration
-resource "aws_s3_bucket" "my_bucket" {
+resource "aws_s3_bucket" "bucket" {
   bucket = "runjchbjh"     # Use a globally unique name for your S3 bucket
   acl    = "private"                   # Set bucket ACL to private for security
 }
