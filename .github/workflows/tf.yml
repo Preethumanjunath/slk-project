@@ -10,8 +10,8 @@ on:
 
 jobs:
   terraform:
-    runs-on: ubuntu-latest  # You can use Amazon Linux 2 if needed
-
+    runs-on: ubuntu-latest  # Use Amazon Linux 2 instead of Ubuntu (optional)
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -28,18 +28,13 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      # Change directory to where your Terraform configuration files are
       - name: Terraform Init, Plan, and Apply
         run: |
-          cd terraform  # Change directory to where your Terraform files are
           terraform init
           terraform plan
           terraform apply -auto-approve
         if: github.ref == 'refs/heads/main'  # Only apply on main branch
 
-      # Terraform destroy step for pull requests
       - name: Terraform Destroy (optional)
-        run: |
-          cd terraform  # Change directory to where your Terraform files are
-          terraform destroy -auto-approve
+        run: terraform destroy -auto-approve
         if: github.event_name == 'pull_request'  # Cleanup for PRs
